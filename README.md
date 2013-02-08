@@ -11,8 +11,8 @@ These libraries can be used independently and here is a sample usage in your cod
 #### For clustering:
 
 1. Include the js file (minified or full version)
-'''js
-'''<script type="text/javascript" src="cluster.js"></script>
+
+		<script type="text/javascript" src="cluster.js"></script>
 
 2. Initialize the cluster layer with options. Look at the constructor of the layer for all possible options.
 		
