@@ -16,6 +16,7 @@ These libraries can be used independently and here is a sample usage in your cod
 
 2. Initialize the cluster layer with options. Look at the constructor of the layer for all possible options.
 		
+		```js
 		clusterLayer = new modules.ClusterLayer(null, {
 			map: map, //esri map object	
 			visible: !1, //default visibility
@@ -24,19 +25,25 @@ These libraries can be used independently and here is a sample usage in your cod
 			rgb: [26, 26, 26], //color of the cluster graphic
 			textrgb: [255, 255, 255] //color of label
 		});
-
+		```js
+		
 3. Add points to cluster where points are an array of objects which has x and y. 
 		
+		```js
 		//Example
 		var points = [{x:12,y:22}];
 		clusterLayer.setData(points);
-
+		```js
+		
 4. Show the layer
 		
+		```js
 		clusterLayer.show() //or hide clusterLayer.hide()
-
+		```js
+		
 5. Connect to events such as onclick	
-	
+		
+		```js
 		//on click do something
 		dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
 			//get map extent that cluster respresents
@@ -64,7 +71,7 @@ These libraries can be used independently and here is a sample usage in your cod
 		dojo.connect(clusterLayer.graphics, "onMouseOut", function(a) {
 			map.graphics.remove(c)
 		});
-
+		```js
 
 #### For Heatmap
 
@@ -84,18 +91,21 @@ These libraries can be used independently and here is a sample usage in your cod
 			visible: !0, //initial visibility
 			globalMax: !1 //density based on all points or visible points
 		});
+		```js
 
 3. Add points to heatmap layer where points are an array of objects which has x and y. 
 		
+		```js
 		//Example: 
 		var points = [{x:12,y:22}]
 		heatLayer.setData(points);
+		```js
 
 4. Show or hide the layer
 		
+		```js
 		heatLayer.show()  //or heatLayer.hide()
-
-
+		```js
 
 ## Issues
 
