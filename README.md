@@ -1,18 +1,15 @@
-cluster-and-heatmap
-===================
+# cluster-and-heatmap
 
 Clustering and heatmap libraries for ArcGIS JS API mapping applications
 
-Here is a link to the app that uses these libraries: http://maps.esri.com/SP_DEMOS/crimemapper/index.html
+[View it live] Here is a link to the app that uses these libraries: http://maps.esri.com/SP_DEMOS/crimemapper/index.html
 
-========
-Usage:
-========
+## Usage:
 
 These libraries can be used independently and here is a sample usage in your code:
 
-For clustering:
-================
+### For clustering:
+
 1. Include the js file (minified or full version)
 <script type="text/javascript" src="cluster.js"></script>
 
@@ -63,8 +60,8 @@ var c = new esri.Graphic(null, b, null, null);
     });
 
 
-For Heatmap:
-============
+### For Heatmap
+
 1. Include the js files (minified or full versions, with IE polyfill for heatmap layer)
 
 <!--[if lt IE 9]>
@@ -85,3 +82,28 @@ heatLayer.setData(points);
 
 4. Show or hide the layer
 heatLayer.show()  or heatLayer.hide()
+
+
+
+## Issues
+
+Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+
+
+## Licensing
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+[](Esri Tags: ArcGIS yyy zzz …)
+[](Esri Language: JavaScript)
+
