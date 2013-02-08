@@ -2,55 +2,55 @@
 
 Clustering and heatmap libraries for ArcGIS JS API mapping applications
 
-[View it live] Here is a link to the app that uses these libraries: http://maps.esri.com/SP_DEMOS/crimemapper/index.html
+[View it live] (http://maps.esri.com/SP_DEMOS/crimemapper/index.html)
 
 ## Usage:
 
 These libraries can be used independently and here is a sample usage in your code:
 
-### For clustering:
+#### For clustering:
 
 1. Include the js file (minified or full version)
 <script type="text/javascript" src="cluster.js"></script>
 
 2. Initialize the cluster layer with options. Look at the constructor of the layer for all possible options.
-clusterLayer = new modules.ClusterLayer(null, {
-    map: map, //esri map object	
-	visible: !1, //default visibility
-    intervals: 4, //number of equal interval cluster classes
-    pixelsSquare: 128, 
-    rgb: [26, 26, 26], //color of the cluster graphic
-    textrgb: [255, 255, 255] //color of label
-});
+	clusterLayer = new modules.ClusterLayer(null, {
+		map: map, //esri map object	
+		visible: !1, //default visibility
+		intervals: 4, //number of equal interval cluster classes
+		pixelsSquare: 128, 
+		rgb: [26, 26, 26], //color of the cluster graphic
+		textrgb: [255, 255, 255] //color of label
+	});
 
 3. Add points to cluster where points are an array of objects which has x and y. Example: var points = [{x:12,y:22}]
-clusterLayer.setData(points);
+	clusterLayer.setData(points);
 
 4. Show the layer
-clusterLayer.show()
+	clusterLayer.show()
 
 5. Connect to events such as onclick
-//5a. on click do something
- dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
+	//5a. on click do something
+	dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
 
-	//get map extent that cluster respresents
-	var query = new esri.tasks.Query();
-        query.geometry = evt.graphic.attributes.extent;
-	query.outSpatialReference = map.spatialReference;
-	
+		//get map extent that cluster respresents
+		var query = new esri.tasks.Query();
+		query.geometry = evt.graphic.attributes.extent;
+		query.outSpatialReference = map.spatialReference;	
 
-	//if you have a feature layer (feature service layer is optional)
-	var f = myfeaturelayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+		//if you have a feature layer (feature service layer is optional)
+		var f = myfeaturelayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
 
-	//open popup to show info
+		//open popup to show info
         map.infoWindow.setFeatures([f]);
         map.infoWindow.show(evt.mapPoint);
-});
+	});
 
 
-//5b. Draw graphic on mouse over on the cluster 
-var b = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([150, 150, 150]), 2));
-var c = new esri.Graphic(null, b, null, null);
+	//5b. Draw graphic on mouse over on the cluster 
+	var b = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([150, 150, 150]), 2));
+	var c = new esri.Graphic(null, b, null, null);
+	
     dojo.connect(clusterLayer.graphics, "onMouseOver", function(a) {
         c.geometry = a.graphic.attributes.extent, map.graphics.add(c)
     });
@@ -60,7 +60,7 @@ var c = new esri.Graphic(null, b, null, null);
     });
 
 
-### For Heatmap
+#### For Heatmap
 
 1. Include the js files (minified or full versions, with IE polyfill for heatmap layer)
 
@@ -104,6 +104,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[](Esri Tags: ArcGIS yyy zzz …)
+[](Esri Tags: ArcGIS JSAPI cluster heatmap feature featureservice many)
 [](Esri Language: JavaScript)
 
