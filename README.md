@@ -14,6 +14,7 @@ These libraries can be used independently and here is a sample usage in your cod
 <script type="text/javascript" src="cluster.js"></script>
 
 2. Initialize the cluster layer with options. Look at the constructor of the layer for all possible options.
+		
 		clusterLayer = new modules.ClusterLayer(null, {
 			map: map, //esri map object	
 			visible: !1, //default visibility
@@ -24,11 +25,13 @@ These libraries can be used independently and here is a sample usage in your cod
 		});
 
 3. Add points to cluster where points are an array of objects which has x and y. 
+		
 		//Example
 		var points = [{x:12,y:22}];
 		clusterLayer.setData(points);
 
 4. Show the layer
+		
 		clusterLayer.show() //or hide clusterLayer.hide()
 
 5. Connect to events such as onclick	
@@ -73,6 +76,7 @@ These libraries can be used independently and here is a sample usage in your cod
 		<script type="text/javascript" src="heatlayer.js"></script>
 
 2. Initialize the heatmap layer with options. Look at the constructor of the layer for all possible options.
+		
 		var heatLayer = new modules.HeatLayer(null, {
 			opacity: .9,
 			visible: !0, //initial visibility
@@ -80,11 +84,13 @@ These libraries can be used independently and here is a sample usage in your cod
 		});
 
 3. Add points to heatmap layer where points are an array of objects which has x and y. 
+		
 		//Example: 
 		var points = [{x:12,y:22}]
 		heatLayer.setData(points);
 
 4. Show or hide the layer
+		
 		heatLayer.show()  //or heatLayer.hide()
 
 
