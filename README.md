@@ -78,6 +78,7 @@ These libraries can be used independently and here is a sample usage in your cod
 
 2. Initialize the heatmap layer with options. Look at the constructor of the layer for all possible options.
 		
+		```js
 		var heatLayer = new modules.HeatLayer(null, {
 			opacity: .9,
 			visible: !0, //initial visibility
