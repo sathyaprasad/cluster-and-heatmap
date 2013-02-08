@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Cluster-and-heatmap by sathyaprasad</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/sathyaprasad/cluster-and-heatmap">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Cluster-and-heatmap</h1>
+            <h2>Clustering and heatmap libraries for ArcGIS JS APi mapping applications</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/sathyaprasad/cluster-and-heatmap/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/sathyaprasad/cluster-and-heatmap/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>cluster-and-heatmap</h1>
+
+<p>Clustering and heatmap libraries for ArcGIS JS API mapping applications</p>
+
+<p><a href="http://maps.esri.com/SP_DEMOS/crimemapper/index.html">View it live</a></p>
+
+<h2>Usage:</h2>
+
+<p>These libraries can be used independently and here is a sample usage in your code:</p>
+
+<h4>For clustering:</h4>
+
+<ol>
+<li>
+<p>Include the js file (minified or full version)</p>
+
+<pre><code>&lt;script type="text/javascript" src="cluster.js"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li>
+<p>Initialize the cluster layer with options. Look at the constructor of the layer for all possible options.</p>
+
+<pre><code>```js
+clusterLayer = new modules.ClusterLayer(null, {
+    map: map, //esri map object 
+    visible: !1, //default visibility
+    intervals: 4, //number of equal interval cluster classes
+    pixelsSquare: 128, 
+    rgb: [26, 26, 26], //color of the cluster graphic
+    textrgb: [255, 255, 255] //color of label
+});
+```js
+</code></pre>
+</li>
+<li>
+<p>Add points to cluster where points are an array of objects which has x and y. </p>
+
+<pre><code>```js
+//Example
+var points = [{x:12,y:22}];
+clusterLayer.setData(points);
+```js
+</code></pre>
+</li>
+<li>
+<p>Show the layer</p>
+
+<pre><code>```js
+clusterLayer.show() //or hide clusterLayer.hide()
+```js
+</code></pre>
+</li>
+<li>
+<p>Connect to events such as onclick    </p>
+
+<pre><code>```js
+//on click do something
+dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
+    //get map extent that cluster respresents
+    var query = new esri.tasks.Query();
+    query.geometry = evt.graphic.attributes.extent;
+    query.outSpatialReference = map.spatialReference;   
+
+    //if you have a feature layer (feature service layer is optional)
+    var f = myfeaturelayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+
+    //open popup to show info
+    map.infoWindow.setFeatures([f]);
+    map.infoWindow.show(evt.mapPoint);
+});
+
+//Draw graphic on mouse over on the cluster 
+var b = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([150, 150, 150]), 2));
+var c = new esri.Graphic(null, b, null, null);
+
+dojo.connect(clusterLayer.graphics, "onMouseOver", function(a) {
+    c.geometry = a.graphic.attributes.extent, map.graphics.add(c)
+});
+
+dojo.connect(clusterLayer.graphics, "onMouseOut", function(a) {
+    map.graphics.remove(c)
+});
+```js
+</code></pre>
+</li>
+</ol><h4>For Heatmap</h4>
+
+<ol>
+<li>
+<p>Include the js files (minified or full versions, with IE polyfill for heatmap layer)</p>
+
+<pre><code>&lt;!--[if lt IE 9]&gt;
+&lt;script type="text/javascript" src="excanvas.compiled.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+
+&lt;script type="text/javascript" src="heatlayer.js"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li>
+<p>Initialize the heatmap layer with options. Look at the constructor of the layer for all possible options.</p>
+
+<pre><code>```js
+var heatLayer = new modules.HeatLayer(null, {
+    opacity: .9,
+    visible: !0, //initial visibility
+    globalMax: !1 //density based on all points or visible points
+});
+```js
+</code></pre>
+</li>
+<li>
+<p>Add points to heatmap layer where points are an array of objects which has x and y. </p>
+
+<pre><code>```js
+//Example: 
+var points = [{x:12,y:22}]
+heatLayer.setData(points);
+```js
+</code></pre>
+</li>
+<li>
+<p>Show or hide the layer</p>
+
+<pre><code>```js
+heatLayer.show()  //or heatLayer.hide()
+```js
+</code></pre>
+</li>
+</ol><h2>Issues</h2>
+
+<p>Find a bug or want to request a new feature?  Please let us know by submitting an issue.</p>
+
+<h2>Licensing</h2>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+
+<p><a></a>
+<a></a></p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/sathyaprasad">sathyaprasad</a> can be found on <a href="https://github.com/sathyaprasad/cluster-and-heatmap">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
