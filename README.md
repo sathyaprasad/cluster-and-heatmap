@@ -30,34 +30,34 @@ These libraries can be used independently and here is a sample usage in your cod
 	clusterLayer.show()
 
 5. Connect to events such as onclick
-	//5a. on click do something
-	dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
-
-		//get map extent that cluster respresents
-		var query = new esri.tasks.Query();
-		query.geometry = evt.graphic.attributes.extent;
-		query.outSpatialReference = map.spatialReference;	
-
-		//if you have a feature layer (feature service layer is optional)
-		var f = myfeaturelayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
-
-		//open popup to show info
-        map.infoWindow.setFeatures([f]);
-        map.infoWindow.show(evt.mapPoint);
-	});
-
-
-	//5b. Draw graphic on mouse over on the cluster 
-	var b = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([150, 150, 150]), 2));
-	var c = new esri.Graphic(null, b, null, null);
+	5a. on click do something
 	
-    dojo.connect(clusterLayer.graphics, "onMouseOver", function(a) {
-        c.geometry = a.graphic.attributes.extent, map.graphics.add(c)
-    });
+		dojo.connect(clusterLayer.graphics, "onClick", function(evt) {
+			//get map extent that cluster respresents
+			var query = new esri.tasks.Query();
+			query.geometry = evt.graphic.attributes.extent;
+			query.outSpatialReference = map.spatialReference;	
 
-	dojo.connect(clusterLayer.graphics, "onMouseOut", function(a) {
-        map.graphics.remove(c)
-    });
+			//if you have a feature layer (feature service layer is optional)
+			var f = myfeaturelayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW);
+
+			//open popup to show info
+			map.infoWindow.setFeatures([f]);
+			map.infoWindow.show(evt.mapPoint);
+		});
+
+
+	5b. Draw graphic on mouse over on the cluster 
+		var b = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASH, new dojo.Color([150, 150, 150]), 2));
+		var c = new esri.Graphic(null, b, null, null);
+	
+		dojo.connect(clusterLayer.graphics, "onMouseOver", function(a) {
+			c.geometry = a.graphic.attributes.extent, map.graphics.add(c)
+		});
+
+		dojo.connect(clusterLayer.graphics, "onMouseOut", function(a) {
+			map.graphics.remove(c)
+		});
 
 
 #### For Heatmap
